@@ -1,7 +1,7 @@
-![查询1](https://github.com/DoubleLTT/Oracle/blob/master/img3.JPG)
-![查询2](https://github.com/DoubleLTT/Oracle/blob/master/img2.JPG)
+1. ![查询1](https://github.com/DoubleLTT/Oracle/blob/master/img3.JPG)
+2. ![查询2](https://github.com/DoubleLTT/Oracle/blob/master/img2.JPG)
 
-从查询时间来看，查询1的时间比查询2时间少，所以查询1优于查询2.
+*结论：从查询时间来看，查询1的时间比查询2时间少，所以查询1优于查询2.*
 
 自定义代码如下：
 '''

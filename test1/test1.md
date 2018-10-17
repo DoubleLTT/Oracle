@@ -7,10 +7,13 @@
 ### 自定义代码如下：
 
 ~~~sql
-SELECT d.department_name，count(e.job_id)as "部门总人数"，
-avg(e.salary)as "平均工资"
-FROM hr.departments d，hr.employees e
-WHERE d.department_id = e.department_id
-GROUP BY department_name
-HAVING d.department_name in ('IT'，'Sales');
+SELECT department_name, count(job_id) as "部门总人数", 
+avg(salary) as "平均工资"
+FROM hr.employees e
+JOIN
+(SELECT d.department_id, d.department_name
+FROM hr.departments d
+WHERE d.department_name in ('IT', 'Sales'))
+USING (department_id)
+GROUP BY department_name;
 ~~~

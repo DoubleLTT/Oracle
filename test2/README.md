@@ -8,12 +8,12 @@
       
 ### 2. 实验过程：
 
- - 第1步：以system登录到pdborcl，创建新角色con_res_ltt和新用户ltt，并授权和分配空间：
+ - 第1步：以system登录到pdborcl，创建新角色**con_res_ltt**和新用户**ltt**，并授权和分配空间：
 
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)
 
- - 第2步：新用户ltt连接到pdborcl，创建表mytable和视图myview，插入数据，最后将myview的SELECT对象权限授予hr用户。
+ - 第2步：新用户**ltt**连接到pdborcl，创建表mytable和视图myview，插入数据，最后将myview的SELECT对象权限授予hr用户。
 
 ![第二步](https://github.com/DoubleLTT/Oracle/blob/master/img/%E7%AC%AC%E4%BA%8C%E6%AD%A5.JPG?raw=true)
 
@@ -24,9 +24,9 @@
 
 ### 3. 实验总结：
 
-      从查询时间来看，查询1用时0.036s,查询2用时0.06s,
-      查询1的时间比查询2时间少，所以查询1优于查询2。
-      均未给出优化建议。
+     在实验过程中，我创建的数据库新角色为**con_res_ltt**，新用户为**ltt**，
+     以ltt的用户身份进入数据库，连接到pdborcl,创建表mytable和视图myview，
+     在表中新建了1行，命名为name，值为liao,切换到hr，可以查询到新建的字段值。
 
 
 

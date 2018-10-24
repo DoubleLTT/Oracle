@@ -8,7 +8,7 @@
       
 ### 2. 实验过程：
 
- - 第1步：以system登录到pdborcl，创建新角色<font color=#0099ff size=7 face="黑体">con_res_ltt</font>和新用户<font color=#0099ff size=7 face="黑体">ltt</font>，并授权和分配空间：
+ - 第1步：以system登录到pdborcl，创建新角色<font color=#A52A2A size=4>con_res_ltt</font>和新用户<font color=#0099ff size=7>ltt</font>，并授权和分配空间：
 
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)

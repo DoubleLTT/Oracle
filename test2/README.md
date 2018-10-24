@@ -8,13 +8,42 @@
       
 ### 2. 实验过程：
 
- - 第1步：以system登录到pdborcl，创建新角色<font color=#A52A2A size=4>con_res_ltt</font>和新用户<font color=#0099ff size=7>ltt</font>，并授权和分配空间：
-
+ - 第1步：以system登录到pdborcl，创建新角色**con_res_ltt**和新用户**ltt**，并授权和分配空间：
+ 
+```sql
+$ sqlplus system/123@pdborcl
+SQL> CREATE ROLE con_res_ltt;
+SQL> GRANT connect,resource,CREATE VIEW TO con_res_ltt;
+SQL> CREATE USER ltt IDENTIFIED BY 123 DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
+SQL> ALTER USER ltt QUOTA 50M ON users;
+SQL> GRANT con_res_ltt TO ltt;
+SQL> exit
+```
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)
 ![第一步](https://github.com/DoubleLTT/Oracle/blob/master/img/oracle%E5%AE%9E%E9%AA%8C.JPG)
 
  - 第2步：新用户**ltt**连接到pdborcl，创建表mytable和视图myview，插入数据，最后将myview的SELECT对象权限授予hr用户。
-
+```sql
+$ sqlplus new_user/123@pdborcl
+SQL> show user;
+USER is "NEW_USER"
+SQL> CREATE TABLE mytable (id number,name varchar(50));
+Table created.
+SQL> INSERT INTO mytable(id,name)VALUES(1,'zhang');
+1 row created.
+SQL> INSERT INTO mytable(id,name)VALUES (2,'wang');
+1 row created.
+SQL> CREATE VIEW myview AS SELECT name FROM mytable;
+View created.
+SQL> SELECT * FROM myview;
+NAME
+--------------------------------------------------
+zhang
+wang
+SQL> GRANT SELECT ON myview TO hr;
+Grant succeeded.
+SQL>exit
+```
 ![第二步](https://github.com/DoubleLTT/Oracle/blob/master/img/%E7%AC%AC%E4%BA%8C%E6%AD%A5.JPG?raw=true)
 
  - 第3步：用户hr连接到pdborcl，查询ltt授予它的视图myview

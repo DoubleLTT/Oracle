@@ -10,8 +10,57 @@
 - 进行分区与不分区的对比实验。
       
 ### 2. 实验过程：
-
- - 创建orders表的语句（我的用户名为LTT）：
+ - 使用帐号LTT创建表orders：
+ 
+  ```sql
+ CREATE TABLE LTT.orders
+(
+  order_id VARCHAR2(40 BYTE)NOT NULL
+  ,customer_name VARCHAR2(40 BYTE)NOT NULL
+  ,customer_tel VARCHAR2(40 BYTE)NOT NULL
+  ,order_date DATE NOT NULL
+  ,employee_id NUMBER(6,0)NOT NULL 
+  ,discount NUMBER(8,2)DEFAULT 0 
+  ,trade_receivable NUMBER(8,2)DEFAULT 0 
+)
+LOGGING
+TABLESPACE "USERS"
+PCTFREE 10
+INITRANS 1
+STORAGE
+( 
+  INITIAL 65536 
+  NEXT 1048576 
+  MINEXTENTS 1 
+  MAXEXTENTS 2147483645 
+  BUFFER_POOL DEFAULT
+);
+ ```
+ 
+ - 使用帐号LTT创建表order_details：
+ 
+ ```sql
+ CREATE TABLE LTT.order_details
+(
+ , order_id NUMBER(10, 0) NOT NULL
+, product_id VARCHAR2(40 BYTE) NOT NULL 
+, product_num NUMBER(8, 2) NOT NULL 
+, product_price NUMBER(8, 2) NOT NULL 
+)
+LOGGING
+TABLESPACE "USERS"
+PCTFREE 10
+INITRANS 1
+STORAGE
+( 
+  INITIAL 65536 
+  NEXT 1048576 
+  MINEXTENTS 1 
+  MAXEXTENTS 2147483645 
+  BUFFER_POOL DEFAULT
+);
+ ```
+ - 在LTT用户中创建分区表orders，按订单日期分区：
  
 ```sql
 CREATE TABLE LTT.orders 
@@ -41,10 +90,10 @@ PARTITION BY RANGE (order_date)
 ```
 ![orders]()
 
- - 创建order_details表的语句：
+ - 在LTT用户中创建分区表使用帐号LTT创建表order_details，按订单日期分区:
  
 ```sql
-CREATE TABLE order_details 
+CREATE TABLE LTT.order_details 
 (
 id NUMBER(10, 0) NOT NULL 
 , order_id NUMBER(10, 0) NOT NULL
@@ -63,26 +112,24 @@ PARTITION BY REFERENCE (order_details_fk1)
 (
 PARTITION PARTITION_BEFORE_2016 
 NOLOGGING 
-TABLESPACE USERS --必须指定表空间,否则会将分区存储在用户的默认表空间中
-...
+TABLESPACE USERS 
 ) 
 NOCOMPRESS NO INMEMORY, 
 PARTITION PARTITION_BEFORE_2017 
 NOLOGGING 
 TABLESPACE USERS02
-...
 ) 
 NOCOMPRESS NO INMEMORY  
 );
 ```
-![order_details]()
+
 
  - 插入数据的语句:
  
  ```sql
 
 ``` 
- ![insert]()
+
  
  - 分区策略设计:
  
@@ -97,9 +144,11 @@ NOCOMPRESS NO INMEMORY
 
 ### 3. 实验总结：
 
-     在实验过程中，我创建的数据库新角色为con_res_ltt，新用户为ltt，
-     以ltt的用户身份进入数据库，连接到pdborcl,创建表mytable和视图myview，
-     在表中新建了1行，命名为NAME，值为liao,切换到hr，可以查询到新建的字段值。
+     
+     在实验过程中,以ltt的用户身份进入数据库，使用命令 ls -lh 可以查看3个表空间：
+     USERS,USERS02,USERS03，创建两张表：订单表(orders)与订单详表(order_details)。
+     使用该帐号创建分区表orders和order_details，按订单日期分区。
+  
 
 
 

@@ -46,9 +46,15 @@ CREATE TABLE "LTT"."EMPLOYEES"
 - 订单表ORDERS与订单详单表ORDER_DETAILS在上一个实验中已创建。
 
 - 查询数据：
-    1.查询某个员工的信息
-    2.递归查询某个员工及其所有下属，子下属员工。
-    3.查询订单表，并且包括订单的订单应收货款: (订单详单表.ProductNum*订单详单表.ProductPrice)- Discount。
+    1.查询ID号为1的员工的信息
+    ```sql
+    select * from EMPLOYEES where  EMPLOYEE_ID=1;
+    ```
+    2.递归查询某个员工及其所有下属，子下属员工
+    ```sql
+    SELECT * FROM EMPLOYEES START WITH EMPLOYEE_ID = 11 CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID;
+    ```
+    3.查询订单表，并且包括订单的订单应收货款
     4.查询订单详表，要求显示订单的客户名称和客户电话，产品类型用汉字描述。
     5.查询出所有空订单，即没有订单详单的订单。
     6.查询部门表，同时显示部门的负责人姓名。

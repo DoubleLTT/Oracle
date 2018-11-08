@@ -1,9 +1,9 @@
 ## 实验4报告文档
 
 ### 1.实验内容：
-了解Oracle表和视图的概念，学习使用SQL语句Create Table创建表，
-学习Select语句插入，修改，删除以及查询数据，学习使用SQL语句创建视图，
-学习部分存储过程和触发器的使用。我的用户为“LTT”。
+ 了解Oracle表和视图的概念，学习使用SQL语句Create Table创建表，
+ 学习Select语句插入，修改，删除以及查询数据，学习使用SQL语句创建视图，
+ 学习部分存储过程和触发器的使用。我的用户为“LTT”。
 
 ### 2.实验过程：
 
@@ -113,12 +113,20 @@ begin
   SELECT * FROM A;
     ```
     3.查询订单表，并且包括订单的订单应收货款
-    4.查询订单详表，要求显示订单的客户名称和客户电话，产品类型用汉字描述。
-    5.查询出所有空订单，即没有订单详单的订单。
-    6.查询部门表，同时显示部门的负责人姓名。
-    7.查询部门表，统计每个部门的销售总金额。
-
-
+    ```sql
+    select sum(PRODUCT_NUM*PRODUCT_PRICE) into m from ORDER_DETAILS where ORDER_ID=v_order_id;
+    if m is null then
+     m:=0;
+    end if;
+    UPDATE ORDERS SET TRADE_RECEIVABLE = m - discount WHERE ORDER_ID=v_order_id;
+    IF I MOD 1000 =0 THEN
+      commit; --每次提交会加快插入数据的速度
+    END IF;
+  end loop;
+    ```
 
 ## 实验总结
+   通过本次试验熟悉了SQL语句Create Table创建表，
+   学习了Select语句插入，修改，删除以及查询数据，
+   以及使用SQL语句创建视图，学习部分存储过程和触发器的使用。
 
